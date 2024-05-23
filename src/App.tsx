@@ -21,7 +21,10 @@ const Application = () => {
         const uname = lcEmail.split('@')[0];
         // remove numbers
         setUsername(uname.replace(/[0-9]/g, ''));
-        
+      }
+
+       if(loggedInUser) {
+        setIsRegister(false);
       }
 
 
@@ -73,6 +76,7 @@ const Application = () => {
       return;
     }
     try {
+      await account.deleteSession('current');
       setProcessingLogin(true);
       await account.createEmailPasswordSession(email, password)
     setLoggedInUser(account.get());
